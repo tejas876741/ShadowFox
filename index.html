@@ -1,0 +1,1237 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chennai Super Kings - Fan Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cskYellow: '#FDB913',
+            cskBlue: '#0A2647',
+            cskGold: '#FFD700',
+            cskDark: '#051937',
+            cskAccent: '#FF6B35'
+          },
+          fontFamily: {
+            bebas: ['Bebas Neue', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .app-wrapper { height: 100%; overflow-y: auto; }
+    
+    @keyframes lionRoar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(253, 185, 19, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(253, 185, 19, 0.6); }
+    }
+    
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-slide-in { animation: slideIn 0.6s ease-out forwards; }
+    .animate-lion { animation: lionRoar 3s ease-in-out infinite; }
+    .animate-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    .gradient-animate {
+      background: linear-gradient(-45deg, #0A2647, #051937, #0A2647, #1a3a5c);
+      background-size: 400% 400%;
+      animation: gradient-shift 8s ease infinite;
+    }
+    
+    .hero-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(253, 185, 19, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(253, 185, 19, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(10, 38, 71, 0.9) 0%, transparent 100%);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(253, 185, 19, 0.2);
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #FDB913;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .player-card {
+      perspective: 1000px;
+      height: 100%;
+    }
+    .player-card-inner {
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .player-card:hover .player-card-inner {
+      transform: rotateY(10deg);
+    }
+    
+    .player-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #FDB913, #FFD700);
+    }
+    
+    .stat-bar {
+      transition: width 1s ease-out;
+    }
+    
+    .trophy-shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .trophy-shine::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+      animation: shine 3s infinite;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+    .scroll-hidden::-webkit-scrollbar { display: none; }
+    .scroll-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full font-outfit">
+  <div class="app-wrapper gradient-animate text-white">
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cskDark/95 backdrop-blur-md border-b border-cskYellow/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-3">
+       <div class="text-4xl animate-lion">
+        🦁
+       </div>
+       <div>
+        <h1 class="font-bebas text-2xl text-cskYellow tracking-wider">CSK</h1>
+        <p class="text-xs text-cskYellow/70 -mt-1">Since 2008</p>
+       </div>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+       <a href="#home" class="nav-link text-white hover:text-cskYellow transition-colors">Home</a> <a href="#players" class="nav-link text-white hover:text-cskYellow transition-colors">Squad</a> <a href="#schedule" class="nav-link text-white hover:text-cskYellow transition-colors">Matches</a> <a href="#stats" class="nav-link text-white hover:text-cskYellow transition-colors">Stats</a> <a href="#news" class="nav-link text-white hover:text-cskYellow transition-colors">News</a> <a href="#community" class="nav-link text-white hover:text-cskYellow transition-colors">Community</a>
+      </div> <button id="mobile-menu-btn" class="md:hidden p-2 text-cskYellow">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+       </svg></button>
+     </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-cskDark border-t border-cskYellow/20">
+     <div class="px-4 py-3 space-y-2">
+      <a href="#home" class="block py-2 text-white hover:text-cskYellow">Home</a> <a href="#players" class="block py-2 text-white hover:text-cskYellow">Squad</a> <a href="#schedule" class="block py-2 text-white hover:text-cskYellow">Matches</a> <a href="#stats" class="block py-2 text-white hover:text-cskYellow">Stats</a> <a href="#news" class="block py-2 text-white hover:text-cskYellow">News</a> <a href="#community" class="block py-2 text-white hover:text-cskYellow">Community</a>
+     </div>
+    </div>
+   </nav>
+   <section id="home" class="min-h-screen relative flex items-center justify-center hero-pattern pt-16">
+    <div class="absolute inset-0 overflow-hidden">
+     <div class="absolute top-20 left-10 text-9xl opacity-5 animate-lion">
+      🦁
+     </div>
+     <div class="absolute bottom-20 right-10 text-9xl opacity-5 animate-lion" style="animation-delay: 1.5s;">
+      🦁
+     </div>
+    </div>
+    <div class="relative z-10 text-center px-4 animate-slide-in">
+     <div class="mb-6">
+      <span class="inline-block px-4 py-1 bg-cskYellow/20 border border-cskYellow/40 rounded-full text-cskYellow text-sm font-medium"> 🏆 5x IPL Champions </span>
+     </div>
+     <h1 id="hero-title" class="font-bebas text-6xl sm:text-8xl lg:text-9xl text-cskYellow mb-4 tracking-wider drop-shadow-lg">CHENNAI SUPER KINGS</h1>
+     <p id="hero-subtitle" class="text-2xl sm:text-4xl font-bebas text-white/90 mb-8 tracking-wide">WHISTLE PODU! 🎺</p>
+     <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <div class="bg-cskDark/50 backdrop-blur border border-cskYellow/30 rounded-xl p-4 text-center animate-glow">
+       <p class="font-bebas text-4xl text-cskYellow">5</p>
+       <p class="text-sm text-white/70">IPL Titles</p>
+      </div>
+      <div class="bg-cskDark/50 backdrop-blur border border-cskYellow/30 rounded-xl p-4 text-center">
+       <p class="font-bebas text-4xl text-cskYellow">2</p>
+       <p class="text-sm text-white/70">CLT20 Titles</p>
+      </div>
+      <div class="bg-cskDark/50 backdrop-blur border border-cskYellow/30 rounded-xl p-4 text-center">
+       <p class="font-bebas text-4xl text-cskYellow">10</p>
+       <p class="text-sm text-white/70">Finals</p>
+      </div>
+      <div class="bg-cskDark/50 backdrop-blur border border-cskYellow/30 rounded-xl p-4 text-center">
+       <p class="font-bebas text-4xl text-cskYellow">2008</p>
+       <p class="text-sm text-white/70">Est.</p>
+      </div>
+     </div><a href="#players" class="inline-flex items-center gap-2 bg-cskYellow text-cskDark font-bold px-8 py-4 rounded-full hover:bg-white transition-all transform hover:scale-105"> Meet The Lions 
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg></a>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+     <svg class="w-6 h-6 text-cskYellow" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+     </svg>
+    </div>
+   </section>
+   <section id="players" class="py-20 px-4 bg-gradient-to-b from-transparent to-cskDark/50">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16 animate-slide-in">
+      <span class="text-cskYellow font-medium">IPL 2026</span>
+      <h2 class="font-bebas text-5xl sm:text-6xl text-white mt-2">OUR LIONS🦁</h2>
+      <div class="w-24 h-1 bg-cskYellow mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <button onclick="filterPlayers('all')" class="player-filter px-6 py-2 bg-cskYellow text-cskDark rounded-full font-medium transition-all" data-filter="all">All</button> <button onclick="filterPlayers('batsman')" class="player-filter px-6 py-2 bg-cskDark/50 text-white border border-cskYellow/30 rounded-full font-medium hover:bg-cskYellow hover:text-cskDark transition-all" data-filter="batsman">Batsmen</button> <button onclick="filterPlayers('bowler')" class="player-filter px-6 py-2 bg-cskDark/50 text-white border border-cskYellow/30 rounded-full font-medium hover:bg-cskYellow hover:text-cskDark transition-all" data-filter="bowler">Bowlers</button> <button onclick="filterPlayers('allrounder')" class="player-filter px-6 py-2 bg-cskDark/50 text-white border border-cskYellow/30 rounded-full font-medium hover:bg-cskYellow hover:text-cskDark transition-all" data-filter="allrounder">All-rounders</button> <button onclick="filterPlayers('wk')" class="player-filter px-6 py-2 bg-cskDark/50 text-white border border-cskYellow/30 rounded-full font-medium hover:bg-cskYellow hover:text-cskDark transition-all" data-filter="wk">Wicket-keepers</button>
+     </div>
+     <div id="players-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+     </div>
+    </div>
+   </section>
+   <section id="schedule" class="py-20 px-4 bg-cskDark/70">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <span class="text-cskYellow font-medium">IPL 2026</span>
+      <h2 class="font-bebas text-5xl sm:text-6xl text-white mt-2">MATCH SCHEDULE 📅</h2>
+      <div class="w-24 h-1 bg-cskYellow mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div id="schedule-container" class="space-y-4">
+     </div>
+    </div>
+   </section>
+   <section id="stats" class="py-20 px-4 bg-gradient-to-b from-cskDark/50 to-transparent">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <span class="text-cskYellow font-medium">NUMBERS DON'T LIE</span>
+      <h2 class="font-bebas text-5xl sm:text-6xl text-white mt-2">TEAM STATISTICS 📊</h2>
+      <div class="w-24 h-1 bg-cskYellow mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">All-Time Records</h3>
+       <div class="space-y-4">
+        <div class="stat-item">
+         <div class="flex justify-between mb-2">
+          <span class="text-white/80">Matches Played</span> <span class="text-cskYellow font-bold">234</span>
+         </div>
+         <div class="h-2 bg-cskDark rounded-full overflow-hidden">
+          <div class="stat-bar h-full bg-gradient-to-r from-cskYellow to-cskGold rounded-full" style="width: 85%"></div>
+         </div>
+        </div>
+        <div class="stat-item">
+         <div class="flex justify-between mb-2">
+          <span class="text-white/80">Matches Won</span> <span class="text-cskYellow font-bold">145</span>
+         </div>
+         <div class="h-2 bg-cskDark rounded-full overflow-hidden">
+          <div class="stat-bar h-full bg-gradient-to-r from-cskYellow to-cskGold rounded-full" style="width: 62%"></div>
+         </div>
+        </div>
+        <div class="stat-item">
+         <div class="flex justify-between mb-2">
+          <span class="text-white/80">Win Percentage</span> <span class="text-cskYellow font-bold">61.97%</span>
+         </div>
+         <div class="h-2 bg-cskDark rounded-full overflow-hidden">
+          <div class="stat-bar h-full bg-gradient-to-r from-cskYellow to-cskGold rounded-full" style="width: 62%"></div>
+         </div>
+        </div>
+        <div class="stat-item">
+         <div class="flex justify-between mb-2">
+          <span class="text-white/80">Playoffs Qualified</span> <span class="text-cskYellow font-bold">13/15</span>
+         </div>
+         <div class="h-2 bg-cskDark rounded-full overflow-hidden">
+          <div class="stat-bar h-full bg-gradient-to-r from-cskYellow to-cskGold rounded-full" style="width: 87%"></div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">🏆 Trophy Cabinet</h3>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="trophy-shine bg-gradient-to-br from-cskYellow/20 to-transparent border border-cskYellow/30 rounded-xl p-4 text-center">
+         <div class="text-4xl mb-2">
+          🏆
+         </div>
+         <p class="text-cskYellow font-bebas text-xl">IPL 2010</p>
+        </div>
+        <div class="trophy-shine bg-gradient-to-br from-cskYellow/20 to-transparent border border-cskYellow/30 rounded-xl p-4 text-center">
+         <div class="text-4xl mb-2">
+          🏆
+         </div>
+         <p class="text-cskYellow font-bebas text-xl">IPL 2011</p>
+        </div>
+        <div class="trophy-shine bg-gradient-to-br from-cskYellow/20 to-transparent border border-cskYellow/30 rounded-xl p-4 text-center">
+         <div class="text-4xl mb-2">
+          🏆
+         </div>
+         <p class="text-cskYellow font-bebas text-xl">IPL 2018</p>
+        </div>
+        <div class="trophy-shine bg-gradient-to-br from-cskYellow/20 to-transparent border border-cskYellow/30 rounded-xl p-4 text-center">
+         <div class="text-4xl mb-2">
+          🏆
+         </div>
+         <p class="text-cskYellow font-bebas text-xl">IPL 2021</p>
+        </div>
+        <div class="trophy-shine bg-gradient-to-br from-cskYellow/20 to-transparent border border-cskYellow/30 rounded-xl p-4 text-center col-span-2">
+         <div class="text-4xl mb-2">
+          🏆
+         </div>
+         <p class="text-cskYellow font-bebas text-xl">IPL 2023</p>
+         <p class="text-white/60 text-sm">Latest Champion!</p>
+        </div>
+       </div>
+      </div>
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">🏏 All-Time Top Run Scorers</h3>
+       <div class="space-y-3">
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-cskYellow font-bebas text-2xl">1</span>
+         <div class="flex-1">
+          <p class="font-medium">MS Dhoni</p>
+          <p class="text-white/60 text-sm">5,549 runs</p>
+         </div>
+         <div class="text-2xl">
+          👑
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-white/60 font-bebas text-2xl">2</span>
+         <div class="flex-1">
+          <p class="font-medium">Suresh Raina</p>
+          <p class="text-white/60 text-sm">4,687 runs</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-white/60 font-bebas text-2xl">3</span>
+         <div class="flex-1">
+          <p class="font-medium">Ruturaj Gaikwad</p>
+          <p class="text-white/60 text-sm">3,652 runs</p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">🎯 All-Time Top Wicket Takers</h3>
+       <div class="space-y-3">
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-cskYellow font-bebas text-2xl">1</span>
+         <div class="flex-1">
+          <p class="font-medium">Dwayne Bravo</p>
+          <p class="text-white/60 text-sm">183 wickets</p>
+         </div>
+         <div class="text-2xl">
+          🎯
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-white/60 font-bebas text-2xl">2</span>
+         <div class="flex-1">
+          <p class="font-medium">Ravindra Jadeja</p>
+          <p class="text-white/60 text-sm">168 wickets</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-cskDark/50 rounded-lg p-3">
+         <span class="text-white/60 font-bebas text-2xl">3</span>
+         <div class="flex-1">
+          <p class="font-medium">R. Ashwin</p>
+          <p class="text-white/60 text-sm">102 wickets</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="news" class="py-20 px-4 bg-cskDark/70">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <span class="text-cskYellow font-medium">STAY UPDATED</span>
+      <h2 class="font-bebas text-5xl sm:text-6xl text-white mt-2">LATEST NEWS 📰</h2>
+      <div class="w-24 h-1 bg-cskYellow mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+     </div>
+    </div>
+   </section>
+   <section id="community" class="py-20 px-4 bg-gradient-to-b from-transparent to-cskDark/50">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <span class="text-cskYellow font-medium">YELLOW ARMY</span>
+      <h2 class="font-bebas text-5xl sm:text-6xl text-white mt-2">FAN ZONE 🎺</h2>
+      <div class="w-24 h-1 bg-cskYellow mx-auto mt-4 rounded-full"></div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">📊 Fan Poll</h3>
+       <p class="text-white mb-4">Who is your favorite CSK player of all time?</p>
+       <div id="poll-options" class="space-y-3">
+       </div>
+       <div id="poll-results" class="mt-4 hidden">
+        <p class="text-white/60 text-sm mb-2">Results:</p>
+        <div id="poll-results-container"></div>
+       </div>
+      </div>
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">💬 Fan Messages</h3>
+       <form id="comment-form" class="mb-6">
+        <label for="comment-author" class="sr-only">Your Name</label> <input type="text" id="comment-author" placeholder="Your name" class="w-full bg-cskDark/50 border border-cskYellow/30 rounded-lg px-4 py-2 text-white placeholder-white/40 focus:outline-none focus:border-cskYellow mb-3" required> <label for="comment-content" class="sr-only">Your Message</label> <textarea id="comment-content" placeholder="Share your thoughts about CSK..." class="w-full bg-cskDark/50 border border-cskYellow/30 rounded-lg px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-cskYellow resize-none" rows="3" required></textarea> <button type="submit" id="comment-submit" class="mt-3 bg-cskYellow text-cskDark font-bold px-6 py-2 rounded-full hover:bg-white transition-all"> Post Message </button>
+       </form>
+       <div id="comments-container" class="space-y-3 max-h-64 overflow-y-auto scroll-hidden">
+       </div>
+      </div>
+      <div class="bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl p-6 lg:col-span-2">
+       <h3 class="font-bebas text-2xl text-cskYellow mb-6">🌐 Connect With Us</h3>
+       <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://twitter.com/ChennaiIPL" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-cskDark/50 border border-cskYellow/30 rounded-xl px-6 py-3 hover:bg-cskYellow hover:text-cskDark transition-all"> <span class="text-2xl">𝕏</span> <span>Twitter/X</span> </a> <a href="https://www.instagram.com/chennaiipl" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-cskDark/50 border border-cskYellow/30 rounded-xl px-6 py-3 hover:bg-cskYellow hover:text-cskDark transition-all"> <span class="text-2xl">📸</span> <span>Instagram</span> </a> <a href="https://www.facebook.com/ChennaiSuperKings" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-cskDark/50 border border-cskYellow/30 rounded-xl px-6 py-3 hover:bg-cskYellow hover:text-cskDark transition-all"> <span class="text-2xl">📘</span> <span>Facebook</span> </a> <a href="https://www.youtube.com/user/ChennaiSuperKings" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-cskDark/50 border border-cskYellow/30 rounded-xl px-6 py-3 hover:bg-cskYellow hover:text-cskDark transition-all"> <span class="text-2xl">▶️</span> <span>YouTube</span> </a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="bg-cskDark border-t border-cskYellow/20 py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div class="text-center md:text-left">
+       <div class="flex items-center gap-3 justify-center md:justify-start mb-4">
+        <span class="text-5xl animate-lion">🦁</span>
+        <div>
+         <h3 class="font-bebas text-3xl text-cskYellow">Chennai Super Kings</h3>
+         <p id="footer-text" class="text-white/60">Yellow Army Forever</p>
+        </div>
+       </div>
+      </div>
+      <div class="text-center">
+       <h4 class="font-bebas text-xl text-cskYellow mb-4">Quick Links</h4>
+       <nav class="space-y-2">
+        <a href="#home" class="block text-white/60 hover:text-cskYellow transition-colors">Home</a> <a href="#players" class="block text-white/60 hover:text-cskYellow transition-colors">Squad</a> <a href="#schedule" class="block text-white/60 hover:text-cskYellow transition-colors">Matches</a> <a href="#community" class="block text-white/60 hover:text-cskYellow transition-colors">Fan Zone</a>
+       </nav>
+      </div>
+      <div class="text-center md:text-right">
+       <h4 class="font-bebas text-xl text-cskYellow mb-4">Home Ground</h4>
+       <p class="text-white/60">MA Chidambaram Stadium</p>
+       <p class="text-white/60">Chepauk, Chennai</p>
+       <p class="text-white/60">Tamil Nadu, India</p>
+      </div>
+     </div>
+     <div class="border-t border-cskYellow/20 pt-8 text-center">
+      <p class="text-white/40 text-sm">© 2026 Chennai Super Kings Fan Hub. This is a fan-made website.</p>
+      <p class="text-cskYellow font-bebas text-xl mt-2">WHISTLE PODU! 🎺💛</p>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const players = [
+  {
+    name: "MS Dhoni",
+    role: "Wicketkeeper-Batter",
+    type: "wk",
+    country: "🇮🇳",
+    jersey: 7,
+    image: "images/dhoni.jpg",
+    stats: { matches: 268, runs: 5549, avg: 39.5, stumpings: 42 }
+  },
+  {
+    name: "Sanju Samson",
+    role: "Wicketkeeper-Batter",
+    type: "wk",
+    country: "🇮🇳",
+    jersey: 11,
+    image: "images/Sanju.jpeg",
+    stats: { matches: 167, runs: 4419, avg: 30.4, stumpings: 16 }
+  },
+  {
+    name: "Kartik Sharma",
+    role: "Wicketkeeper-Batter",
+    type: "wk",
+    country: "🇮🇳",
+    jersey: 23,
+    image: "images/kartik.jpg",
+    stats: { matches: 10, runs: 180, avg: 22.5, stumpings: 3 }
+  },
+  {
+    name: "Urvil Patel",
+    role: "Wicketkeeper-Batter",
+    type: "wk",
+    country: "🇮🇳",
+    jersey: 12,
+    image: "images/Urvil.png",
+    stats: { matches: 8, runs: 120, avg: 20.0, stumpings: 2 }
+  },
+
+  // ---------------- BATTERS ----------------
+  {
+    name: "Ruturaj Gaikwad",
+    role: "Batter",
+    type: "batsman",
+    country: "🇮🇳",
+    jersey: 31,
+    image: "images/ruturaj.webp",
+    stats: { matches: 70, runs: 2380, avg: 41.2 }
+  },
+  {
+    name: "Ayush Mhatre",
+    role: "Batter",
+    type: "batsman",
+    country: "🇮🇳",
+    jersey: 18,
+    image: "images/Ayush.png",
+    stats: { matches: 5, runs: 85, avg: 21.2 }
+  },
+  {
+    name: "Dewald Brevis",
+    role: "Batter",
+    type: "batsman",
+    country: "🇿🇦",
+    jersey: 17,
+    image: "images/Dewald.png",
+    stats: { matches: 20, runs: 410, avg: 25.6 }
+  },
+  {
+    name: "Sarfaraz Khan",
+    role: "Batter",
+    type: "batsman",
+    country: "🇮🇳",
+    jersey: 97,
+    image: "images/sarfaraz.jpg",
+    stats: { matches: 60, runs: 900, avg: 24.3 }
+  },
+
+  // ---------------- ALLROUNDERS ----------------
+  {
+    name: "Shivam Dube",
+    role: "Batting All-rounder",
+    type: "allrounder",
+    country: "🇮🇳",
+    jersey: 25,
+    image: "images/Dube.png",
+    stats: { matches: 65, runs: 1502, avg: 29.4, wickets: 12, economy: 8.6 }
+  },
+  {
+    name: "Jamie Overton",
+    role: "Bowling All-rounder",
+    type: "allrounder",
+    country: "🏴",
+    jersey: 24,
+    image: "images/jamie.png",
+    stats: { matches: 25, runs: 200, avg: 16.6, wickets: 28, economy: 8.1 }
+  },
+  {
+    name: "Zakary Foulkes",
+    role: "Bowling All-rounder",
+    type: "allrounder",
+    country: "🇳🇿",
+    jersey: 19,
+    image: "images/zak.jpg",
+    stats: { matches: 15, runs: 110, avg: 13.7, wickets: 20, economy: 7.5 }
+  },
+  {
+    name: "Aman Khan",
+    role: "Bowling All-rounder",
+    type: "allrounder",
+    country: "🇮🇳",
+    jersey: 35,
+    image: "images/aman.jpg",
+    stats: { matches: 18, runs: 140, avg: 17.5, wickets: 14, economy: 8.2 }
+  },
+  {
+    name: "Ramakrishna Ghosh",
+    role: "Bowling All-rounder",
+    type: "allrounder",
+    country: "🇮🇳",
+    jersey: 20,
+    image: "images/ghosh.png",
+    stats: { matches: 10, runs: 90, avg: 18.0, wickets: 12, economy: 7.8 }
+  },
+  {
+    name: "Prashant Veer",
+    role: "Bowling All-rounder",
+    type: "allrounder",
+    country: "🇮🇳",
+    jersey: 29,
+    image: "images/prashant.jpg",
+    stats: { matches: 6, runs: 40, avg: 13.3, wickets: 9, economy: 8.0 }
+  },
+  {
+    name: "Noor Ahmad",
+    role: "Spinner",
+    type: "bowler",
+    country: "🇦🇫",
+    jersey: 61,
+    image: "images/noor.png",
+    stats: { matches: 35, wickets: 45, economy: 7.2 }
+  },
+  {
+    name: "Rahul Chahar",
+    role: "Spinner",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 28,
+    image: "images/rahul.jpg",
+    stats: { matches: 70, wickets: 82, economy: 7.8 }
+  },
+  
+  {
+    name: "Shreyas Gopal",
+    role: "Spinner",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 19,
+    image: "images/shreyash.png",
+    stats: { matches: 60, wickets: 65, economy: 7.5 }
+  },
+  {
+    name: "Khaleel Ahmed",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 71,
+    image: "images/khaleel.png",
+    stats: { matches: 55, wickets: 74, economy: 8.4 }
+  },
+  {
+    name: "Nathan Ellis",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇦🇺",
+    jersey: 12,
+    image: "images/nathan.png",
+    stats: { matches: 30, wickets: 38, economy: 8.1 }
+  },
+  {
+    name: "Matt Henry",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇳🇿",
+    jersey: 21,
+    image: "images/matt.jpg",
+    stats: { matches: 40, wickets: 52, economy: 7.9 }
+  },
+  {
+    name: "Anshul Kamboj",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 33,
+    image: "images/anshul.png",
+    stats: { matches: 12, wickets: 15, economy: 8.3 }
+  },
+  {
+    name: "Mukesh Choudhary",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 50,
+    image: "images/mukesh.png",
+    stats: { matches: 25, wickets: 30, economy: 8.5 }
+  },
+  {
+    name: "Gurjapneet Singh",
+    role: "Fast Bowler",
+    type: "bowler",
+    country: "🇮🇳",
+    jersey: 46,
+    image: "images/gurjapneet.png",
+    stats: { matches: 5, wickets: 6, economy: 8.8 }
+  }
+
+];
+const matches = [
+
+  {
+    opponent: "Mumbai Indians",
+    venue: "Wankhede Stadium, Mumbai",
+    date: "Mar 25, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/mi.png"
+  },
+
+  {
+    opponent: "Royal Challengers Bangalore",
+    venue: "M Chinnaswamy Stadium, Bangalore",
+    date: "Mar 28, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/rcb.jpg"
+  },
+
+  {
+    opponent: "Kolkata Knight Riders",
+    venue: "Eden Gardens, Kolkata",
+    date: "Apr 1, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/kkr.jpg"
+  },
+
+  {
+    opponent: "Delhi Capitals",
+    venue: "Arun Jaitley Stadium, Delhi",
+    date: "Apr 4, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/dc.png"
+  },
+
+  {
+    opponent: "Gujarat Titans",
+    venue: "Narendra Modi Stadium, Ahmedabad",
+    date: "Apr 7, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/gt.png"
+    
+  },
+
+  {
+    opponent: "Sunrisers Hyderabad",
+    venue: "Rajiv Gandhi International Stadium, Hyderabad",
+    date: "Apr 10, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/srh.jpg"
+  },
+
+  {
+    opponent: "Rajasthan Royals",
+    venue: "Sawai Mansingh Stadium, Jaipur",
+    date: "Apr 13, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/rr.png"
+  },
+
+  {
+    opponent: "Punjab Kings",
+    venue: "Mohali Stadium",
+    date: "Apr 16, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/pbks.png",
+  },
+
+  {
+    opponent: "Lucknow Super Giants",
+    venue: "Ekana Stadium, Lucknow",
+    date: "Apr 19, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/lsg.jpg",
+    awayLogo: "images/csk.jpg"
+  },
+  {
+    opponent: "Mumbai Indians",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "Apr 22, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/mi.png"
+  },
+
+  {
+    opponent: "Royal Challengers Bangalore",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "Apr 25, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/rcb.jpg"
+  },
+
+  {
+    opponent: "Kolkata Knight Riders",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "Apr 28, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/kkr.jpg"
+  },
+
+  {
+    opponent: "Delhi Capitals",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 1, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/dc.png"
+  },
+
+  {
+    opponent: "Gujarat Titans",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 4, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/gt.png"
+  },
+
+  {
+    opponent: "Sunrisers Hyderabad",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 7, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/srh.jpg"
+  },
+
+  {
+    opponent: "Rajasthan Royals",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 10, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/rr.png"
+  },
+
+  {
+    opponent: "Punjab Kings",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 13, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/pbks.png"
+  },
+
+  {
+    opponent: "Lucknow Super Giants",
+    venue: "MA Chidambaram Stadium, Chennai",
+    date: "May 16, 2026",
+    time: "7:30 PM IST",
+    status: "upcoming",
+    homeLogo: "images/csk.jpg",
+    awayLogo: "images/lsg.jpg"
+  }
+
+];
+    const news = [
+      { title: "CSK Squad Announced for IPL 2026", date: "Jan 20, 2026", excerpt: "Chennai Super Kings unveils their strong 18-member squad for IPL 2026 with exciting new additions and key retentions.", category: "Squad" },
+      { title: "MS Dhoni Set to Lead the Yellow Army", date: "Jan 18, 2026", excerpt: "Captain MS Dhoni confirmed his continued leadership as CSK looks to reclaim the IPL title this season.", category: "Team" },
+      { title: "Young Talent Joins the Squad", date: "Jan 15, 2026", excerpt: "Fresh faces join CSK as the franchise invests in young Indian and international talent for 2026.", category: "Transfer" },
+      { title: "New Training Facility Inaugurated", date: "Jan 10, 2026", excerpt: "CSK unveils state-of-the-art training facility in Chennai with world-class coaching setup.", category: "Facility" },
+      { title: "Fan Poll: Pick Your Favorite 11", date: "Jan 5, 2026", excerpt: "Fans get to vote for their favorite CSK playing XI for the opening match of IPL 2026.", category: "Engagement" },
+      { title: "CSK Foundation Community Drive", date: "Dec 28, 2025", excerpt: "CSK players participate in charity event, visiting schools and providing cricket coaching to underprivileged children.", category: "Community" }
+    ];
+
+    const pollOptions = [
+      { id: "dhoni", name: "MS Dhoni", votes: 0 },
+      { id: "gaikwad", name: "Ruturaj Gaikwad", votes: 0 },
+      { id: "jadeja", name: "Ravindra Jadeja", votes: 0 },
+      { id: "bravo", name: "Dwayne Bravo", votes: 0 }
+    ];
+    const defaultConfig = {
+      hero_title: "CHENNAI SUPER KINGS",
+      hero_subtitle: "WHISTLE PODU! 🎺",
+      footer_text: "Yellow Army Forever",
+      background_color: "#051937",
+      surface_color: "#0A2647",
+      text_color: "#FFFFFF",
+      primary_action_color: "#FDB913",
+      secondary_action_color: "#FFD700"
+    };
+
+    let config = { ...defaultConfig };
+    let userComments = [];
+    let userPollVotes = [];
+    let hasVoted = false;
+    const dataHandler = {
+      onDataChanged(data) {
+        userComments = data.filter(item => item.type === 'comment');
+        userPollVotes = data.filter(item => item.type === 'poll_vote');
+        renderComments();
+        updatePollResults();
+      }
+    };
+    async function initializeApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (newConfig) => {
+            config = { ...defaultConfig, ...newConfig };
+            applyConfig();
+          },
+          mapToCapabilities: (cfg) => ({
+            recolorables: [
+              {
+                get: () => cfg.background_color || defaultConfig.background_color,
+                set: (value) => window.elementSdk.setConfig({ background_color: value })
+              },
+              {
+                get: () => cfg.surface_color || defaultConfig.surface_color,
+                set: (value) => window.elementSdk.setConfig({ surface_color: value })
+              },
+              {
+                get: () => cfg.text_color || defaultConfig.text_color,
+                set: (value) => window.elementSdk.setConfig({ text_color: value })
+              },
+              {
+                get: () => cfg.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => window.elementSdk.setConfig({ primary_action_color: value })
+              },
+              {
+                get: () => cfg.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => window.elementSdk.setConfig({ secondary_action_color: value })
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ["hero_title", cfg.hero_title || defaultConfig.hero_title],
+            ["hero_subtitle", cfg.hero_subtitle || defaultConfig.hero_subtitle],
+            ["footer_text", cfg.footer_text || defaultConfig.footer_text]
+          ])
+        });
+      }
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error("Failed to initialize Data SDK");
+        }
+      }
+      renderPlayers();
+      renderMatches();
+      renderNews();
+      renderPollOptions();
+      applyConfig();
+    }
+
+    function applyConfig() {
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const footerText = document.getElementById('footer-text');
+
+      if (heroTitle) heroTitle.textContent = config.hero_title || defaultConfig.hero_title;
+      if (heroSubtitle) heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      if (footerText) footerText.textContent = config.footer_text || defaultConfig.footer_text;
+    }
+    function renderPlayers(filter = 'all') {
+      const grid = document.getElementById('players-grid');
+      const filteredPlayers = filter === 'all' ? players : players.filter(p => p.type === filter);
+      
+      grid.innerHTML = filteredPlayers.map((player, index) => `
+        <div class="player-card card-hover bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl overflow-hidden" style="animation-delay: ${index * 0.1}s">
+          <div class="player-card-inner">
+            <img src="${player.image}" alt="${player.name}" class="player-image" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #FDB913, #FFD700)'; this.alt='Player unavailable';">
+            <div class="p-4 flex-1 flex flex-col">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <h3 class="font-bebas text-lg text-cskYellow">${player.name}</h3>
+                  <p class="text-white/60 text-xs mb-2">${player.role}</p>
+                </div>
+                <span class="text-2xl">${player.country}</span>
+              </div>
+              <div class="bg-cskDark/50 rounded px-2 py-1 mb-3 text-center">
+                <p class="font-bebas text-xl text-cskYellow">#${player.jersey}</p>
+              </div>
+              <div class="space-y-0.5 text-xs flex-1">
+                ${player.stats.runs ? `<div class="flex justify-between"><span class="text-white/60">Runs:</span><span class="text-white font-medium">${player.stats.runs}</span></div>` : ''}
+                ${player.stats.wickets ? `<div class="flex justify-between"><span class="text-white/60">Wickets:</span><span class="text-white font-medium">${player.stats.wickets}</span></div>` : ''}
+                ${player.stats.avg ? `<div class="flex justify-between"><span class="text-white/60">Avg:</span><span class="text-white font-medium">${player.stats.avg}</span></div>` : ''}
+                ${player.stats.economy ? `<div class="flex justify-between"><span class="text-white/60">Economy:</span><span class="text-white font-medium">${player.stats.economy}</span></div>` : ''}
+                <div class="flex justify-between"><span class="text-white/60">Matches:</span><span class="text-white font-medium">${player.stats.matches}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterPlayers(type) {
+      document.querySelectorAll('.player-filter').forEach(btn => {
+        if (btn.dataset.filter === type) {
+          btn.classList.add('bg-cskYellow', 'text-cskDark');
+          btn.classList.remove('bg-cskDark/50', 'text-white', 'border', 'border-cskYellow/30');
+        } else {
+          btn.classList.remove('bg-cskYellow', 'text-cskDark');
+          btn.classList.add('bg-cskDark/50', 'text-white', 'border', 'border-cskYellow/30');
+        }
+      });
+      renderPlayers(type);
+    }
+function renderMatches() {
+
+  const container = document.getElementById('schedule-container');
+
+  container.innerHTML = matches.map((match, index) => `
+
+    <div class="card-hover bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-4" style="animation-delay:${index * 0.05}s">
+
+      <div class="flex items-center gap-4 flex-1">
+
+        <!-- TEAM LOGOS -->
+        <div class="flex items-center gap-2">
+          <img src="${match.homeLogo}" class="w-10 h-10 object-contain"/>
+          <span class="text-cskYellow font-bold">VS</span>
+          <img src="${match.awayLogo}" class="w-10 h-10 object-contain"/>
+        </div>
+
+        <div>
+          <h3 class="font-bebas text-xl text-white">
+            CSK vs ${match.opponent}
+          </h3>
+
+          <p class="text-white/60 text-sm">
+            ${match.venue}
+          </p>
+        </div>
+
+      </div>
+
+      <div class="text-center sm:text-right">
+        <p class="text-cskYellow font-medium">
+          ${match.date}
+        </p>
+        <p class="text-white/60 text-sm">
+          ${match.time}
+        </p>
+      </div>
+
+      <span class="px-3 py-1 bg-cskYellow/20 border border-cskYellow/40 rounded-full text-cskYellow text-sm uppercase font-medium">
+        ${match.status}
+      </span>
+
+    </div>
+
+  `).join('');
+}
+    function renderNews() {
+      const grid = document.getElementById('news-grid');
+      grid.innerHTML = news.map((item, index) => `
+        <article class="card-hover bg-cskDark/60 backdrop-blur border border-cskYellow/20 rounded-2xl overflow-hidden" style="animation-delay: ${index * 0.1}s">
+          <div class="bg-gradient-to-br from-cskYellow/20 to-transparent p-6">
+            <span class="inline-block px-3 py-1 bg-cskYellow/20 border border-cskYellow/40 rounded-full text-cskYellow text-xs mb-3 font-medium">
+              ${item.category}
+            </span>
+            <h3 class="font-bebas text-xl text-white mb-2">${item.title}</h3>
+            <p class="text-white/60 text-sm">${item.date}</p>
+          </div>
+          <div class="p-6 pt-0">
+            <p class="text-white/70 text-sm">${item.excerpt}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderPollOptions() {
+      const container = document.getElementById('poll-options');
+      container.innerHTML = pollOptions.map(option => `
+        <button 
+          onclick="votePoll('${option.id}')" 
+          class="poll-btn w-full text-left bg-cskDark/50 border border-cskYellow/30 rounded-lg px-4 py-3 hover:bg-cskYellow/20 transition-all ${hasVoted ? 'pointer-events-none opacity-60' : ''}"
+          ${hasVoted ? 'disabled' : ''}
+        >
+          <span class="text-white font-medium">${option.name}</span>
+        </button>
+      `).join('');
+    }
+
+async function votePoll(optionId) {
+  if (hasVoted) return;
+  hasVoted = true;
+  const submitBtn = document.querySelector(`[onclick="votePoll('${optionId}')"]`);
+  if (submitBtn) {
+    submitBtn.innerHTML = '<span class="text-cskYellow">Voting...</span>';
+    submitBtn.disabled = true;
+  }
+  const newVote = {
+    poll_option: optionId
+  };
+
+  userPollVotes.push(newVote);
+
+  setTimeout(() => {
+
+    document.getElementById('poll-results').classList.remove('hidden');
+
+    updatePollResults();
+
+  }, 500);
+}
+
+    function updatePollResults() {
+      if (userPollVotes.length === 0) return;
+      
+      hasVoted = true;
+      document.getElementById('poll-results').classList.remove('hidden');
+      
+      const voteCounts = {};
+      pollOptions.forEach(opt => voteCounts[opt.id] = 0);
+      userPollVotes.forEach(vote => {
+        if (voteCounts[vote.poll_option] !== undefined) {
+          voteCounts[vote.poll_option]++;
+        }
+      });
+
+      const totalVotes = userPollVotes.length;
+      const resultsContainer = document.getElementById('poll-results-container');
+      
+      resultsContainer.innerHTML = pollOptions.map(option => {
+        const count = voteCounts[option.id];
+        const percentage = totalVotes > 0 ? Math.round((count / totalVotes) * 100) : 0;
+        return `
+          <div class="mb-2">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-white">${option.name}</span>
+              <span class="text-cskYellow">${percentage}% (${count})</span>
+            </div>
+            <div class="h-2 bg-cskDark rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-cskYellow to-cskGold rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      renderPollOptions();
+    }
+
+    function renderComments() {
+      const container = document.getElementById('comments-container');
+      
+      if (userComments.length === 0) {
+        container.innerHTML = '<p class="text-white/40 text-center py-4">Be the first to share your thoughts!</p>';
+        return;
+      }
+
+      container.innerHTML = userComments.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).map(comment => `
+        <div class="bg-cskDark/50 rounded-lg p-3 border border-cskYellow/10">
+          <div class="flex justify-between items-start mb-2">
+            <span class="font-medium text-cskYellow">${escapeHtml(comment.author)}</span>
+            <span class="text-white/40 text-xs">${formatDate(comment.timestamp)}</span>
+          </div>
+          <p class="text-white/80 text-sm">${escapeHtml(comment.content)}</p>
+        </div>
+      `).join('');
+    }
+    document.getElementById('comment-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const authorInput = document.getElementById('comment-author');
+      const contentInput = document.getElementById('comment-content');
+      const submitBtn = document.getElementById('comment-submit');
+      
+      const author = authorInput.value.trim();
+      const content = contentInput.value.trim();
+      
+      if (!author || !content) return;
+      
+      if (userComments.length >= 999) {
+        showToast('Maximum comments reached. Thank you for your enthusiasm!');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting...';
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create({
+          id: Date.now().toString(),
+          type: 'comment',
+          content: content,
+          author: author,
+          timestamp: new Date().toISOString(),
+          poll_option: ''
+        });
+
+        if (result.isOk) {
+          authorInput.value = '';
+          contentInput.value = '';
+          showToast('Message posted! Whistle Podu! 🎺💛');
+        } else {
+          showToast('Failed to post message. Please try again.');
+        }
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Post Message';
+    });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    function formatDate(isoString) {
+      const date = new Date(isoString);
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 bg-cskYellow text-cskDark px-6 py-3 rounded-full font-medium shadow-lg z-50 animate-slide-in';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ceae1313316ff64',t:'MTc3MTIyMjIwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
